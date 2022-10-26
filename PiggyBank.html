@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piggy Bank</title>
+
+    <style>
+        body {
+            font-family: Verdana, Tahoma, sans-serif;
+            justify-content: center;
+        } 
+
+        h1 {
+            text-align: center;
+            text-shadow: 2px 2px 5px pink;
+            font-size: 44px;
+            color: #69A541;
+            letter-spacing: 5px;
+        }
+
+        h2 {
+            color: #E1731A;
+            text-align: center;
+            font-size: 45px;
+            font-weight: lighter;
+            text-shadow: 5px 5px 5px pink;
+            letter-spacing: 5px;     
+            border: 3px solid #69A541;
+            border-radius: 10px;
+            width: 700px;
+            margin: 25px auto;
+        }
+
+        main {
+            width: 600px;
+            background-color: #69A541;
+            margin: 0 auto;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        img {
+            max-width: 96%;
+        }
+        div {
+            color: white;
+            font-size: 26px;
+            opacity: 0.9;
+            text-align: center;
+            align-self: center;
+            line-height: 2;
+        }
+
+        span {
+            text-transform: uppercase;
+        }
+
+        a {
+            color: white;
+            text-transform: uppercase;            
+            text-decoration: none;
+        }
+
+        .calc {
+            padding: 17px 23px;
+            font-size: 20px;
+            color: white;
+            border-width: 1px;
+            border-radius: 15px;
+            box-shadow: 1px 1px 1px #E1731A;
+            background-color: #E1731A;
+            border-color: #E1731A;
+            margin: 30px auto;
+            border-style: solid;
+            transition: 250ms ease-in-out;
+            
+        }
+
+        .calc:hover {
+            color: white;
+            text-shadow: 0px 1px 1px white;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        hr {
+            border: 1px solid #E1731A;
+            width: 500px;
+        }
+
+
+        p {
+            letter-spacing: 3px;
+        }
+
+
+        input {
+            padding: 10px;
+        }
+
+        ::placeholder {
+            color: #E1731A;
+        }
+
+        .submit {
+            color: white;
+            font-size: 16px;
+            padding: 13px 20px;
+            background-color: #E1731A;
+            border-radius: 10px;
+            border-width: 1px;
+            border-color: #E1731A;
+            border-style: solid;
+            transition: 200ms ease-in-out;
+            margin-top: 30px;
+        }
+
+        .submit:hover {
+            color: white;
+            background-color: transparent;
+        }
+ 
+        footer {
+            font-family: monospace;
+            text-align: center;
+            font-size: 16px;
+            opacity: 0.8;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Piggy Bank</h1>
+        <h2>Deposit Calculator</h2>
+    </header>
+
+    <main>
+        <img src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/046/300/original/piggy-bank.png?1663312623" alt="piggy-bank">
+        <div>For money <br>is more comfortable <br>to be <span><strong>on deposit</strong></span><br><br><em>Calculate the interest</em><br>of your deposit using our<br><a href="#calcButton">deposit calculator !</a></div>
+        <button class="calc" id="calcButton">Calculate</button> 
+        <hr>
+        <div>
+                <form>
+                    <p>Fill out this form:</p>
+                    <input type="text" name="name" placeholder="Enter your name">
+                    <input type="tel" name="phone" placeholder="Enter your phone">
+                    <br>
+                    <button class="submit" type="submit">Submit</button>
+                    <p>and we will call you back<br>🪙</p>
+                </form>
+        </div>        
+    </main>
+    
+    <footer>Created by Maryna Morozova</footer>
+
+    <script>
+        function calculate () {        
+            const n = 1000;
+            let m = false;
+
+            while (m === false) {
+                m = prompt('Enter INITIAL AMOUNT OF MONEY (min 1000):', '');
+                if (m === null) {
+                    break;
+                } else {
+                    m = Number(m);
+                    if (Number.isNaN(m) || m < n) {
+                        m = false;
+                        alert('Invalid data');
+                        continue;
+                    }
+                }
+            }
+
+            const u = 1;
+            let y = false;
+
+            while (y === false & m !== null) {
+                y = prompt('Enter NUMBER OF YEARS (min 1):', '');
+                if (y === null) {
+                    break;
+                } else {
+                    y = Number(y);
+                    if (Number.isNaN(y) || Number.isInteger(y) === false || y < u) {
+                        y = false;
+                        alert('Invalid data');
+                        continue;
+                    }
+                }
+            }
+
+            const x = 100;
+            let p = false;
+
+            while (p === false & m !== null & y !== null) {
+                p = prompt('Enter PERCENTAGE OF A YEAR: ', '');
+                if (p === null) {
+                    break;
+                } else {
+                    p = Number(p);
+                    if (Number.isNaN(p) || p > x) {
+                        p = false;
+                        alert('Invalid data');
+                        continue;
+                    }
+                }
+            }
+
+            if (p !== null & m !== null & y !== null) {
+                let totalAmount = m * Math.pow(1 + p / x, Math.round(y));
+                let totalProfit = totalAmount - m;
+                let z = 2;
+
+                alert(
+                    `Initial amount: ${m}\nNumber of years: ${y}\nPercentage of year: ${p}\n\nTotal profit = ${totalProfit.toFixed(z)}\nTotal amount = ${totalAmount.toFixed(z)}`);
+            }
+        }
+
+            let calculateButton = document.querySelector("button");
+            calculateButton.addEventListener("click", calculate);
+    </script>
+</body>
+
+</html>
